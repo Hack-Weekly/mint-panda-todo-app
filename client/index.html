@@ -9,6 +9,41 @@
     <title>Mint Panda Todo App</title>
   </head>
   <body>
+
+    <header>
+      <h1>To Do List</h1>
+      <form id="newTaskForm">
+        <input type="text" id="newTaskInput" placeholder="Add Task">
+        <input type="submit" id="addNewTask" value="Add">
+      </form>
+    </header>
+
+    <main>
+
+      <section class="taskList">
+
+        <h2>Tasks</h2>
+        <div id="tasks">
+
+          <div class ="task">
+
+            <div class="content">
+              <input type="text" class="text">
+            </div>
+
+            <div class="actions">
+              <button class="done">Done</button>
+              <button class="delete">Delete</button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+
     <div id="root"></div>
     <script
       type="module"
