@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TaskList from './components/TaskList';
+import CategoryBar from './components/CategoryBar';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -37,9 +38,24 @@ function App() {
   },
   ])
 
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
+
+  const filterTasks = (selection) => {
+    console.log('ran filterTasks')
+    if (selection == null) {
+      setFilteredTasks(tasks);
+      return;
+    }
+
+    let newTasks = tasks.filter(task => task.isComplete == selection);
+    console.log(newTasks)
+    setFilteredTasks(newTasks)
+  }
+
   return (
     <>
-      <TaskList tasks={tasks}/>
+      <CategoryBar handleClick={filterTasks}/>
+      <TaskList tasks={filteredTasks}/>
     </>
   )
 }
