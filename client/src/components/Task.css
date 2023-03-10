@@ -1,0 +1,49 @@
+.container {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1.5rem 1rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightcyan;
+  color: black;
+  width: 50%;
+}
+
+.text {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.createdAt {
+  margin-top: 0.5rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.right {
+  align-self: center;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.edit,
+.complete,
+.archive {
+  padding: 0.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.edit {
+  background-color: lightblue;
+}
+
+.complete {
+  background-color: lightgreen;
+}
+
+.archive {
+  background-color: lightsalmon;
+}
