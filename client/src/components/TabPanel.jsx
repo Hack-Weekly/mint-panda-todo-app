@@ -8,7 +8,6 @@ function TabPanel({ handleClick }) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     handleClick(newValue);
-    console.log(newValue)
   };
 
   return (

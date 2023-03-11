@@ -41,7 +41,6 @@ function App() {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
 
   const filterTasks = (selection) => {
-    console.log('ran')
     if (selection === "open") {
       setFilteredTasks(tasks.filter((task) => !task.isComplete));
     }
