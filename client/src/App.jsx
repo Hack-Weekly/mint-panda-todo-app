@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import TaskList from './components/TaskList';
 import TabPanel from './components/TabPanel';
+import { Container, styled } from '@mui/system';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -53,11 +54,19 @@ function App() {
     else setFilteredTasks(tasks);
   }
 
+  const StyledContainer = styled(Container)`
+    align-items: center
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32px;
+  `;
+
   return (
-    <>
+    <StyledContainer>
       <TabPanel handleClick={filterTasks}/>
       <TaskList tasks={filteredTasks}/>
-    </>
+    </StyledContainer>
   )
 }
 

@@ -11,7 +11,7 @@ function TabPanel({ handleClick }) {
   };
 
   return (
-    <Tabs value={value} onChange={handleChange}>
+    <Tabs value={value} onChange={handleChange} centered>
       <Tab sx={{color: '#e8eaf6'}} label="All" value={'all'}></Tab>
       <Tab sx={{color: '#e8eaf6'}} label="Open" value={'open'}></Tab>
       <Tab sx={{color: '#e8eaf6'}} label="Completed" value={'completed'}></Tab>
