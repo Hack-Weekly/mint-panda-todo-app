@@ -41,15 +41,16 @@ function App() {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
 
   const filterTasks = (selection) => {
-    console.log('ran filterTasks')
-    if (selection == null) {
-      setFilteredTasks(tasks);
-      return;
+    if (selection === "open") {
+      setFilteredTasks(tasks.filter((task) => !task.isComplete));
     }
-
-    let newTasks = tasks.filter(task => task.isComplete == selection);
-    console.log(newTasks)
-    setFilteredTasks(newTasks)
+    else if (selection === "completed") {
+      setFilteredTasks(tasks.filter((task) => task.isComplete && !task.isArchived));
+    }
+    else if (selection === "archived") {
+      setFilteredTasks(tasks.filter((task) => task.isArchived));
+    }
+    else setFilteredTasks(tasks);
   }
 
   return (

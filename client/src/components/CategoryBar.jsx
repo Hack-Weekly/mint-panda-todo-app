@@ -14,8 +14,9 @@ function CategoryBar({ handleClick }) {
   return (
     <div style={style}>
         <button style={ buttonStyle } onClick={ () => handleClick() }>All</button>
-        <button style={ buttonStyle } onClick={ () => handleClick(false) }>Open</button>
-        <button style={ buttonStyle } onClick={ () => handleClick(true) }>Complete</button>
+        <button style={ buttonStyle } onClick={ () => handleClick('open') }>Open</button>
+        <button style={ buttonStyle } onClick={ () => handleClick('completed') }>Completed</button>
+        <button style={ buttonStyle } onClick={ () => handleClick('archived') }>Archived</button>
     </div>
   )
 }
