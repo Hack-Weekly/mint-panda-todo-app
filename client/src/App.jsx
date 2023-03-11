@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import TaskList from './components/TaskList';
-import CategoryBar from './components/CategoryBar';
+import TabPanel from './components/TabPanel';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -41,6 +41,7 @@ function App() {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
 
   const filterTasks = (selection) => {
+    console.log('ran')
     if (selection === "open") {
       setFilteredTasks(tasks.filter((task) => !task.isComplete));
     }
@@ -55,7 +56,7 @@ function App() {
 
   return (
     <>
-      <CategoryBar handleClick={filterTasks}/>
+      <TabPanel handleClick={filterTasks}/>
       <TaskList tasks={filteredTasks}/>
     </>
   )
