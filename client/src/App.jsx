@@ -5,6 +5,7 @@ import Toast from './components/Toast';
 import { Container, styled } from '@mui/system';
 import TaskInput from './components/TaskInput';
 import shortid from 'shortid';
+import { Typography, Box } from '@mui/material';
 
 const StyledContainer = styled(Container)`
   align-items: center
@@ -13,6 +14,7 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   padding: 32px;
 `;
+
 
 function App() {
 
@@ -94,6 +96,19 @@ function App() {
   return (
     <StyledContainer>
       <Toast message={message} openToast={openToast} setOpenToast={setOpenToast} />
+      <Box 
+        sx={{
+          display: 'flex', 
+          justifyContent: 'center',
+          marginBottom: '2rem'
+        }} 
+        alignItems="center" 
+        justifyContent="center"
+      >
+        <Typography variant="h3" component="h1">
+          Panda To-Do
+        </Typography>
+      </Box>
       <TabPanel selectedTab={value} setSelectedTab={setValue} taskText={taskText}/>
       <TaskInput inputValue={inputValue} setInputValue={setInputValue} addTask={addTask}/>
       <TaskList archiveTask={archiveTask} deleteTask={deleteTask} completeTask={completeTask} tasks={filteredTasks}/>
