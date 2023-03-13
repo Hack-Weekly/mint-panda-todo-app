@@ -16,9 +16,7 @@ padding: 32px;
 function App() {
 
   const [value, setValue] = useState('all');
-
   const [tasks, setTasks] = useState([])
-
   const [inputValue, setInputValue] = useState('');
 
   const taskText = useMemo(() => ({
@@ -41,6 +39,7 @@ function App() {
     return tasks;
   },[value, tasks])
 
+  // taskinput button onClick callback
   const addTask = () => {
     if (inputValue != '') {
       const fullDate = new Date();
@@ -56,10 +55,10 @@ function App() {
     }
   }
 
+  // task button onClick callbacks passed as props
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id))
   }
-
   const completeTask = (id) => {
     setTasks(tasks.map(task => {
       if (task.id == id){
