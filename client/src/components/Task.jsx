@@ -23,6 +23,7 @@ const StyledCard = styled(Card)`
 `
 
 // Documentation on Material UI Card: https://mui.com/material-ui/react-card/
+
 function Task ({ task, deleteTask, completeTask }) {
   const {
     id,
@@ -39,6 +40,10 @@ function Task ({ task, deleteTask, completeTask }) {
 
   const handleComplete = () => {
     completeTask(id)
+  }
+
+  const handleArchive = () => {
+    archiveTask(id);
   }
 
   return (
@@ -58,9 +63,18 @@ function Task ({ task, deleteTask, completeTask }) {
           padding: '16px'
         }}
       >
+      {!task.isCompleted && (
         <Button onClick={handleComplete} variant='contained' size='small'>
           <AssignmentTurnedInIcon sx={{ color: 'white' }} />
         </Button>
+        )}
+        {task.isCompleted && !task.isArchived && (
+        <Button onClick={handleArchive} color='secondary' variant='contained' size='small'>
+          Archive
+        </Button>
+        )}
+        <Button onClick={handleDelete} variant='contained' color="error" size='small'>
+          Delete
         <Button
           onClick={handleDelete}
           variant='contained'
