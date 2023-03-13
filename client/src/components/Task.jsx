@@ -23,7 +23,6 @@ function Task ({ task }) {
         <Typography>
           {`Date Completed: ${completedDate}`}
         </Typography>
-
         <Typography>
           {`Is Task Archived: ${isArchived}`}
         </Typography> */}
