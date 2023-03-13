@@ -13,7 +13,8 @@ function Toast({ openToast, setOpenToast, message }) {
     message={message} 
     autoHideDuration={4000} 
     open={openToast}
-    onClose={handleClose} />
+    onClose={handleClose} 
+    severity='success' />
   )
 }
 

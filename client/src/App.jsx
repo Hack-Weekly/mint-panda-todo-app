@@ -62,11 +62,13 @@ function App() {
 
   // task button onClick callbacks passed as props
   const deleteTask = (id) => {
-    setMessage('Task Deleted')
+    setMessage('Task Deleted');
+    setOpenToast(true);
     setTasks(tasks.filter(task => task.id !== id))
   }
   const completeTask = (id) => {
-    setMessage('Task Completed')
+    setMessage('Task Completed');
+    setOpenToast(true);
     let newTasks = tasks.map(task => {
       if (task.id === id){
         task.isCompleted = true;
@@ -77,7 +79,8 @@ function App() {
     setTasks(newTasks)
   }
   const archiveTask = (id) => {
-    setMessage('Task Archived')
+    setMessage('Task Archived');
+    setOpenToast(true);
     let newTasks = tasks.map(task => {
       if (task.id === id){
         task.isArchived = true;
