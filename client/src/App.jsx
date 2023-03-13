@@ -117,6 +117,19 @@ function App() {
     return () => unsubscribe();
   }, [])
 
+  useEffect(() => {
+    const q = query(collection(db, 'todos'))
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let todosArr = []
+      querySnapshot.forEach((doc) => {
+        todosArr.push({...doc.data(), id:doc.id})
+      })
+      setTasks(todosArr);
+      filterTasks(todosArr, tabSelected);
+    })
+    return () => unsubscribe();
+  }, [])
+
   return (
     <StyledContainer>
       <Toast message={message} openToast={openToast} setOpenToast={setOpenToast} />
