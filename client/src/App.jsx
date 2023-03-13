@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TaskList from './components/TaskList';
+import TabPanel from './components/TabPanel';
+import { Container, styled } from '@mui/system';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -37,10 +39,34 @@ function App() {
   },
   ])
 
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
+
+  const filterTasks = (selection) => {
+    if (selection === "open") {
+      setFilteredTasks(tasks.filter((task) => !task.isComplete));
+    }
+    else if (selection === "completed") {
+      setFilteredTasks(tasks.filter((task) => task.isComplete && !task.isArchived));
+    }
+    else if (selection === "archived") {
+      setFilteredTasks(tasks.filter((task) => task.isArchived));
+    }
+    else setFilteredTasks(tasks);
+  }
+
+  const StyledContainer = styled(Container)`
+    align-items: center
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32px;
+  `;
+
   return (
-    <>
-      <TaskList tasks={tasks}/>
-    </>
+    <StyledContainer>
+      <TabPanel handleClick={filterTasks}/>
+      <TaskList tasks={filteredTasks}/>
+    </StyledContainer>
   )
 }
 
