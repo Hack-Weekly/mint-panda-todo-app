@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 
 // Documentation on Material UI Card: https://mui.com/material-ui/react-card/
-function Task ({ task, deleteTask, completeTask }) {
+function Task ({ task, deleteTask, completeTask, archiveTask }) {
   const { id, text, isCompleted, createdDate, completedDate, isArchived } = task
 
   const handleDelete = () => {
@@ -17,6 +17,10 @@ function Task ({ task, deleteTask, completeTask }) {
 
   const handleComplete = () => {
     completeTask(id);
+  }
+
+  const handleArchive = () => {
+    archiveTask(id);
   }
 
   return (
@@ -39,9 +43,16 @@ function Task ({ task, deleteTask, completeTask }) {
         </Typography>
       </CardContent>
       <CardActions>
+        {!task.isCompleted && (
         <Button onClick={handleComplete} variant='contained' size='small'>
           Mark As Complete
         </Button>
+        )}
+        {task.isCompleted && !task.isArchived && (
+        <Button onClick={handleArchive} color='secondary' variant='contained' size='small'>
+          Archive
+        </Button>
+        )}
         <Button onClick={handleDelete} variant='contained' color="error" size='small'>
           Delete
         </Button>

@@ -69,12 +69,22 @@ function App() {
     });
     setTasks(newTasks)
   }
+  const archiveTask = (id) => {
+    let newTasks = tasks.map(task => {
+      if (task.id === id){
+        task.isArchived = true;
+        return task;
+      }
+      return task;
+    });
+    setTasks(newTasks)
+  }
 
   return (
     <StyledContainer>
       <TabPanel selectedTab={value} setSelectedTab={setValue} taskText={taskText}/>
       <TaskInput inputValue={inputValue} setInputValue={setInputValue} addTask={addTask}/>
-      <TaskList deleteTask={deleteTask} completeTask={completeTask} tasks={filteredTasks}/>
+      <TaskList archiveTask={archiveTask} deleteTask={deleteTask} completeTask={completeTask} tasks={filteredTasks}/>
     </StyledContainer>
   )
 }
