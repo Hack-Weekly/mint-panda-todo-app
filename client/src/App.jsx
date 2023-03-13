@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import TaskList from './components/TaskList';
 import TabPanel from './components/TabPanel';
+import Toast from './components/Toast';
 import { Container, styled } from '@mui/system';
 import TaskInput from './components/TaskInput';
 import shortid from 'shortid';
@@ -18,6 +19,8 @@ function App() {
   const [value, setValue] = useState('all');
   const [tasks, setTasks] = useState([])
   const [inputValue, setInputValue] = useState('');
+  const [message, setMessage] = useState('');
+  const [openToast, setOpenToast] = useState(false);
 
   const taskText = useMemo(() => ({
     all: `All (${tasks.length})`,
@@ -42,6 +45,8 @@ function App() {
   // taskinput button onClick callback
   const addTask = () => {
     if (inputValue != '') {
+      setMessage('Task Added');
+      setOpenToast(true)
       const fullDate = new Date();
 
       setTasks([...tasks, {
@@ -57,9 +62,11 @@ function App() {
 
   // task button onClick callbacks passed as props
   const deleteTask = (id) => {
+    setMessage('Task Deleted')
     setTasks(tasks.filter(task => task.id !== id))
   }
   const completeTask = (id) => {
+    setMessage('Task Completed')
     let newTasks = tasks.map(task => {
       if (task.id === id){
         task.isCompleted = true;
@@ -70,6 +77,7 @@ function App() {
     setTasks(newTasks)
   }
   const archiveTask = (id) => {
+    setMessage('Task Archived')
     let newTasks = tasks.map(task => {
       if (task.id === id){
         task.isArchived = true;
@@ -82,6 +90,7 @@ function App() {
 
   return (
     <StyledContainer>
+      <Toast message={message} openToast={openToast} setOpenToast={setOpenToast} />
       <TabPanel selectedTab={value} setSelectedTab={setValue} taskText={taskText}/>
       <TaskInput inputValue={inputValue} setInputValue={setInputValue} addTask={addTask}/>
       <TaskList archiveTask={archiveTask} deleteTask={deleteTask} completeTask={completeTask} tasks={filteredTasks}/>
