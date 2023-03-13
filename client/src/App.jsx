@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import TaskList from './components/TaskList';
 import TabPanel from './components/TabPanel';
 import Toast from './components/Toast';
@@ -7,6 +7,10 @@ import TaskInput from './components/TaskInput';
 import shortid from 'shortid';
 import { Typography, Box } from '@mui/material';
 
+import { query, collection, onSnapshot } from 'firebase/firestore'
+import { db, dbAddTask, dbRemoveTask, dbCompleteTask } from './firebase_init';
+
+
 const StyledContainer = styled(Container)`
   align-items: center;
   display: flex;
@@ -14,7 +18,6 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   padding: 32px;
 `;
-
 
 function App() {
 
@@ -52,15 +55,17 @@ function App() {
       setOpenToast(true)
 
       const fullDate = new Date();
-
-      setTasks([...tasks, {
+      const newTask = {
         id: shortid.generate(),
         text: inputValue,
         isCompleted: false,
         createdDate: fullDate,
         completedDate: null,
         isArchived: false
-      }])
+      }
+
+      setTasks([...tasks, newTask])
+      dbAddTask(newTask)
     }
 
     setInputValue("")
@@ -71,6 +76,7 @@ function App() {
     setMessage('Task Deleted');
     setOpenToast(true);
     setTasks(tasks.filter(task => task.id !== id))
+    dbRemoveTask(id);
   }
   const completeTask = (id) => {
     setMessage('Task Completed');
@@ -83,6 +89,7 @@ function App() {
       return task;
     });
     setTasks(newTasks)
+    dbCompleteTask(id);
   }
   const archiveTask = (id) => {
     setMessage('Task Archived');
@@ -96,6 +103,19 @@ function App() {
     });
     setTasks(newTasks)
   }
+
+  // Firebase updating
+  useEffect(() => {
+    const q = query(collection(db, 'todos'))
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let todosArr = []
+      querySnapshot.forEach((doc) => {
+        todosArr.push({...doc.data(), id:doc.id})
+      })
+      setTasks(todosArr);
+    })
+    return () => unsubscribe();
+  }, [])
 
   return (
     <StyledContainer>

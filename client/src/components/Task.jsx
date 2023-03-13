@@ -73,8 +73,6 @@ function Task ({ task, deleteTask, completeTask }) {
           Archive
         </Button>
         )}
-        <Button onClick={handleDelete} variant='contained' color="error" size='small'>
-          Delete
         <Button
           onClick={handleDelete}
           variant='contained'
