@@ -6,7 +6,7 @@ import TaskInput from './components/TaskInput';
 import shortid from 'shortid';
 
 const StyledContainer = styled(Container)`
-  align-items: center
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,7 +41,8 @@ function App() {
 
   // taskinput button onClick callback
   const addTask = () => {
-    if (inputValue != '') {
+    console.log('addTask', inputValue)
+    if (inputValue !== '') {
       const fullDate = new Date();
 
       setTasks([...tasks, {
@@ -53,6 +54,8 @@ function App() {
         isArchived: false
       }])
     }
+
+    setInputValue("")
   }
 
   // task button onClick callbacks passed as props
