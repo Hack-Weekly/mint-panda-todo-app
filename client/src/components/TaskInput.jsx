@@ -1,25 +1,32 @@
 import TextField from '@mui/material/TextField';
-import { Box, Button } from '@mui/material';
+import { Box, Button, styled } from '@mui/material';
 
-function TaskInput({ addTask, setInputValue }) {
+const StyledForm = styled("form")`
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+`;
 
+function TaskInput({ addTask, inputValue, setInputValue }) {
   const handleChange = (event) => {
-    setInputValue(event.target.value);
+    setInputValue(event.target.value || "");
+  }
+  const handleAddTask = (event) => {
+    event.preventDefault();
+
+    addTask(inputValue)
   }
 
   return (
-    <Box 
+    <Box
       sx={{
-        margin: '1rem', 
-        display: 'flex', 
-        justifyContent: 'center',
-        gap: '1rem'
-      }} 
-      alignItems="center" 
-      justifyContent="center"
+        margin: '2rem',
+      }}
     >
-      <TextField onChange={handleChange} color="primary" label="Describe Task" variant="outlined"/>
-      <Button onClick={addTask} variant="contained">ADD</Button>
+      <StyledForm onSubmit={handleAddTask}>
+        <TextField onChange={handleChange} color="primary" label="Describe Task" variant="outlined" value={inputValue} />
+        <Button type="submit" variant="contained" sx={{ marginLeft: "24px"}}>ADD</Button>
+      </StyledForm>
     </Box>
   )
 }
