@@ -18,10 +18,10 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-function TaskList ({ tasks }) {
+function TaskList ({ tasks, deleteTask, completeTask }) {
   return (
     <StyledGrid container>
-      {tasks.map(task => <Task key={task.id} task={task} />)}
+      {tasks.map(task => <Task deleteTask={deleteTask} completeTask={completeTask} key={task.id} task={task} />)}
     </StyledGrid>
   )
 }

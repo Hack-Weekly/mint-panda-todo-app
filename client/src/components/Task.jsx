@@ -8,17 +8,22 @@ import {
 } from '@mui/material'
 
 // Documentation on Material UI Card: https://mui.com/material-ui/react-card/
-function Task ({ task }) {
-  const { id, text, isComplete, createdDate, completedDate, isArchived } = task
+function Task ({ task, deleteTask, completeTask }) {
+  const { id, text, isCompleted, createdDate, completedDate, isArchived } = task
+
+  const handleDelete = () => {
+    deleteTask(id);
+  }
+
+  const handleComplete = () => {
+    completeTask(id);
+  }
 
   return (
     <Card key={id} sx={{ m: 3, maxWidth: "400px" }}>
       <CardContent>
         {/* <Typography variant='h3'>
           {`Task Id: ${id}`}
-        </Typography>
-        <Typography>
-          {`Is Task Complete? ${isComplete}`}
         </Typography>
         <Typography>
           {`Date Completed: ${completedDate}`}
@@ -34,8 +39,11 @@ function Task ({ task }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant='contained' size='small'>
-          Do Something Cool!
+        <Button onClick={handleComplete} variant='contained' size='small'>
+          Mark As Complete
+        </Button>
+        <Button onClick={handleDelete} variant='contained' color="error" size='small'>
+          Delete
         </Button>
       </CardActions>
     </Card>

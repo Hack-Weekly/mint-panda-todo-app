@@ -21,12 +21,19 @@ function App() {
 
   const [inputValue, setInputValue] = useState('');
 
+  const taskText = useMemo(() => ({
+    all: `All (${tasks.length})`,
+    open: `Open (${tasks.filter((task) => !task.isComplete).length})`,
+    completed: `Completed (${tasks.filter((task) => task.isComplete && !task.isArchived).length})`,
+    archived: `Archived (${tasks.filter((task) => task.isArchived).length})`
+  }), [tasks]);
+
   const filteredTasks = useMemo(() => {
     if (value === "open") {
-      return tasks.filter((task) => !task.isComplete);
+      return tasks.filter((task) => !task.isCompleted);
     }
     else if (value === "completed") {
-      return tasks.filter((task) => task.isComplete && !task.isArchived);
+      return tasks.filter((task) => task.isCompleted && !task.isArchived);
     }
     else if (value === "archived") {
       return tasks.filter((task) => task.isArchived);
@@ -41,7 +48,7 @@ function App() {
       setTasks([...tasks, {
         id: shortid.generate(),
         text: inputValue,
-        isComplete: false,
+        isCompleted: false,
         createdDate: fullDate,
         completedDate: null,
         isArchived: false
@@ -49,11 +56,24 @@ function App() {
     }
   }
 
+  const deleteTask = (id) => {
+    setTasks(tasks.filter(task => task.id !== id))
+  }
+
+  const completeTask = (id) => {
+    setTasks(tasks.map(task => {
+      if (task.id == id){
+        task.isCompleted = true;
+      }
+      return task;
+    }))
+  }
+
   return (
     <StyledContainer>
-      <TabPanel selectedTab={value} setSelectedTab={setValue}/>
+      <TabPanel selectedTab={value} setSelectedTab={setValue} taskText={taskText}/>
       <TaskInput inputValue={inputValue} setInputValue={setInputValue} addTask={addTask}/>
-      <TaskList tasks={filteredTasks}/>
+      <TaskList deleteTask={deleteTask} completeTask={completeTask} tasks={filteredTasks}/>
     </StyledContainer>
   )
 }
