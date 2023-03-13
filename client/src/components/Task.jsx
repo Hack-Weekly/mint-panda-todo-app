@@ -24,7 +24,7 @@ const StyledCard = styled(Card)`
 
 // Documentation on Material UI Card: https://mui.com/material-ui/react-card/
 
-function Task ({ task, deleteTask, completeTask }) {
+function Task ({ task, deleteTask, completeTask, archiveTask }) {
   const {
     id,
     text,
