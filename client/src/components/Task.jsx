@@ -4,19 +4,42 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography
+  Typography,
+  styled,
+  keyframes,
+  Icon,
+  IconButton
 } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn'
+
+const fadeinout = keyframes`
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+`
+const StyledCard = styled(Card)`
+    animation-name: ${fadeinout};
+    animation-duration: 1.5s;
+`
 
 // Documentation on Material UI Card: https://mui.com/material-ui/react-card/
-function Task ({ task, deleteTask, completeTask, archiveTask }) {
-  const { id, text, isCompleted, createdDate, completedDate, isArchived } = task
+
+function Task ({ task, deleteTask, completeTask }) {
+  const {
+    id,
+    text,
+    isCompleted,
+    createdDate,
+    completedDate,
+    isArchived
+  } = task
 
   const handleDelete = () => {
-    deleteTask(id);
+    deleteTask(id)
   }
 
   const handleComplete = () => {
-    completeTask(id);
+    completeTask(id)
   }
 
   const handleArchive = () => {
@@ -24,28 +47,25 @@ function Task ({ task, deleteTask, completeTask, archiveTask }) {
   }
 
   return (
-    <Card key={id} sx={{ m: 3, maxWidth: "400px" }}>
+    <StyledCard key={id} sx={{ m: 3, maxWidth: '400px' }}>
       <CardContent>
-        {/* <Typography variant='h3'>
-          {`Task Id: ${id}`}
-        </Typography>
-        <Typography>
-          {`Date Completed: ${completedDate}`}
-        </Typography>
-        <Typography>
-          {`Is Task Archived: ${isArchived}`}
-        </Typography> */}
-        <Typography variant="h6">
+        <Typography variant='h6'>
           {text}
         </Typography>
-        <Typography variant="body2">
+        <Typography variant='body2'>
           {`Date Created: ${createdDate}`}
         </Typography>
       </CardContent>
-      <CardActions>
-        {!task.isCompleted && (
+      <CardActions
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '16px'
+        }}
+      >
+      {!task.isCompleted && (
         <Button onClick={handleComplete} variant='contained' size='small'>
-          Mark As Complete
+          <AssignmentTurnedInIcon sx={{ color: 'white' }} />
         </Button>
         )}
         {task.isCompleted && !task.isArchived && (
@@ -55,9 +75,16 @@ function Task ({ task, deleteTask, completeTask, archiveTask }) {
         )}
         <Button onClick={handleDelete} variant='contained' color="error" size='small'>
           Delete
+        <Button
+          onClick={handleDelete}
+          variant='contained'
+          color='error'
+          size='small'
+        >
+          <DeleteIcon sx={{ color: 'white' }} />
         </Button>
       </CardActions>
-    </Card>
+    </StyledCard>
   )
 }
 

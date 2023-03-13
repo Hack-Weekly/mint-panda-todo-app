@@ -8,7 +8,7 @@ import shortid from 'shortid';
 import { Typography, Box } from '@mui/material';
 
 const StyledContainer = styled(Container)`
-  align-items: center
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,9 +46,11 @@ function App() {
 
   // taskinput button onClick callback
   const addTask = () => {
-    if (inputValue != '') {
+
+    if (inputValue !== '') {
       setMessage('Task Added');
       setOpenToast(true)
+
       const fullDate = new Date();
 
       setTasks([...tasks, {
@@ -60,6 +62,8 @@ function App() {
         isArchived: false
       }])
     }
+
+    setInputValue("")
   }
 
   // task button onClick callbacks passed as props
