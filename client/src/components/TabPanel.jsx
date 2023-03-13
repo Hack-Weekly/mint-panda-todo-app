@@ -1,11 +1,8 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
-import { useState } from 'react';
-
 function TabPanel({ selectedTab, setSelectedTab, taskText }) {
   
-
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue)
   };
