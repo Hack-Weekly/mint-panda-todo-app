@@ -8,7 +8,7 @@ import shortid from 'shortid';
 import { Typography, Box } from '@mui/material';
 
 import { query, collection, onSnapshot } from 'firebase/firestore'
-import { db, dbAddTask, dbRemoveTask, dbCompleteTask } from './firebase_init';
+import { db, dbAddTask, dbRemoveTask, dbCompleteTask, dbArchiveTask } from './firebase_init';
 
 
 const StyledContainer = styled(Container)`
@@ -102,6 +102,7 @@ function App() {
       return task;
     });
     setTasks(newTasks)
+    dbArchiveTask(id);
   }
 
   // Firebase updating

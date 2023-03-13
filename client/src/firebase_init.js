@@ -33,3 +33,9 @@ export const dbCompleteTask = async (id) => {
     isCompleted: true,
   });
 }
+
+export const dbArchiveTask = async (id) => {
+  await updateDoc(doc(db, 'todos', id), {
+    isArchived: true,
+  })
+}
