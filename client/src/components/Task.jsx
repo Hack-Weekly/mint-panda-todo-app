@@ -14,11 +14,8 @@ function Task ({ task }) {
   return (
     <Card key={id} sx={{ m: 3, maxWidth: "400px" }}>
       <CardContent>
-        <Typography variant='h3'>
+        {/* <Typography variant='h3'>
           {`Task Id: ${id}`}
-        </Typography>
-        <Typography>
-          {text}
         </Typography>
         <Typography>
           {`Is Task Complete? ${isComplete}`}
@@ -26,11 +23,15 @@ function Task ({ task }) {
         <Typography>
           {`Date Completed: ${completedDate}`}
         </Typography>
-        <Typography>
-          {`Date Created: ${createdDate}`}
-        </Typography>
+
         <Typography>
           {`Is Task Archived: ${isArchived}`}
+        </Typography> */}
+        <Typography variant="h6">
+          {text}
+        </Typography>
+        <Typography variant="body2">
+          {`Date Created: ${createdDate}`}
         </Typography>
       </CardContent>
       <CardActions>

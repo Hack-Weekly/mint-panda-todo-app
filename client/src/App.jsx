@@ -1,70 +1,58 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import TaskList from './components/TaskList';
 import TabPanel from './components/TabPanel';
 import { Container, styled } from '@mui/system';
+import TaskInput from './components/TaskInput';
+import shortid from 'shortid';
+
+const StyledContainer = styled(Container)`
+align-items: center
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 32px;
+`;
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "do something",
-      isComplete: true,
-      createdDate: "",
-      completedDate: "",
-      isArchived: false,
-  },
-  {
-      id: 2,
-      text: "do the next thing",
-      isComplete: false,
-      createdDate: "",
-      completedDate: null,
-      isArchived: false,
-  },
-  {
-      id: 3,
-      text: "do this thing then archive it",
-      isComplete: true,
-      createdDate: "",
-      completedDate: "",
-      isArchived: true,
-  },
-  {
-      id: 4,
-      text: "do the last thing",
-      isComplete: false,
-      createdDate: "",
-      completedDate: null,
-      isArchived: false,
-  },
-  ])
 
-  const [filteredTasks, setFilteredTasks] = useState(tasks);
+  const [value, setValue] = useState('all');
 
-  const filterTasks = (selection) => {
-    if (selection === "open") {
-      setFilteredTasks(tasks.filter((task) => !task.isComplete));
+  const [tasks, setTasks] = useState([])
+
+  const [inputValue, setInputValue] = useState('');
+
+  const filteredTasks = useMemo(() => {
+    if (value === "open") {
+      return tasks.filter((task) => !task.isComplete);
     }
-    else if (selection === "completed") {
-      setFilteredTasks(tasks.filter((task) => task.isComplete && !task.isArchived));
+    else if (value === "completed") {
+      return tasks.filter((task) => task.isComplete && !task.isArchived);
     }
-    else if (selection === "archived") {
-      setFilteredTasks(tasks.filter((task) => task.isArchived));
+    else if (value === "archived") {
+      return tasks.filter((task) => task.isArchived);
     }
-    else setFilteredTasks(tasks);
+    return tasks;
+  },[value, tasks])
+
+  const addTask = () => {
+    if (inputValue != '') {
+      const fullDate = new Date();
+
+      setTasks([...tasks, {
+        id: shortid.generate(),
+        text: inputValue,
+        isComplete: false,
+        createdDate: fullDate,
+        completedDate: null,
+        isArchived: false
+      }])
+    }
   }
-
-  const StyledContainer = styled(Container)`
-    align-items: center
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 32px;
-  `;
 
   return (
     <StyledContainer>
-      <TabPanel handleClick={filterTasks}/>
+      <TabPanel selectedTab={value} setSelectedTab={setValue}/>
+      <TaskInput inputValue={inputValue} setInputValue={setInputValue} addTask={addTask}/>
       <TaskList tasks={filteredTasks}/>
     </StyledContainer>
   )
