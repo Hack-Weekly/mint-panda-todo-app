@@ -24,7 +24,6 @@ export const dbAddTask = async (task) => {
 }
 
 export const dbRemoveTask = async (id) => {
-  console.log(id)
   await deleteDoc(doc(db, 'todos', id))
 }
 

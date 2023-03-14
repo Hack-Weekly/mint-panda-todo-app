@@ -55,11 +55,12 @@ function App() {
       setOpenToast(true)
 
       const fullDate = new Date();
+      
       const newTask = {
         id: shortid.generate(),
         text: inputValue,
         isCompleted: false,
-        createdDate: fullDate,
+        createdDate: fullDate.toUTCString(),
         completedDate: null,
         isArchived: false
       }
@@ -126,7 +127,6 @@ function App() {
         todosArr.push({...doc.data(), id:doc.id})
       })
       setTasks(todosArr);
-      filterTasks(todosArr, tabSelected);
     })
     return () => unsubscribe();
   }, [])
